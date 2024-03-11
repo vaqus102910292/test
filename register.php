@@ -30,3 +30,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo 'Zarejestrowano pomyślnie!';
 }
 ?>
+
+<?php
+// register.php
+
+// Ścieżka do pliku, w którym będą zapisywane dane użytkowników
+$usersFile = 'users.txt';
+
+// Obsługa formularza rejestracji
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Zaszyfrowane hasło
+
+    // Zapisanie danych do pliku
+    $userData = "$username|$email|$password\n";
+    file_put_contents($usersFile, $userData, FILE_APPEND);
+
+    // Komunikat o udanej rejestracji
+    echo 'Rejestracja udana!';
+
+    // Możesz przekierować użytkownika na inną stronę po rejestracji
+    // header("Location: success.php");
+    // exit();
+}
+?>
+
